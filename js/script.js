@@ -1,5 +1,9 @@
+let playerScore = 0;
+let computerScore = 0;
+let round = 0;
 function playGame(playerInput) {
   clearMessages();
+  round += 1;
   //function getMoveName
   function getMoveName(moveId) {
     if (moveId == 1) {
@@ -12,6 +16,21 @@ function playGame(playerInput) {
       return "Unknown";
     }
   }
+  //function to toggle winner class
+  function winnerToggle(playerScore, computerScore) {
+    if (playerScore > computerScore) {
+      document.querySelector(".score-span-computer").classList.add("loser");
+      document.querySelector(".score-span-player").classList.add("winner");
+      document.querySelector(".score-span-computer").classList.remove("winner");
+      document.querySelector(".score-span-player").classList.remove("loser");
+    } else if (playerScore < computerScore) {
+      document.querySelector(".score-span-computer").classList.add("winner");
+      document.querySelector(".score-span-player").classList.add("loser");
+      document.querySelector(".score-span-computer").classList.remove("loser");
+      document.querySelector(".score-span-player").classList.remove("winner");
+    }
+  }
+
   //function displayResults
   function displayResult(playerMove, computerMove) {
     if (computerMove == playerMove) {
@@ -21,10 +40,17 @@ function playGame(playerInput) {
       (computerMove == "Scissors" && playerMove == "Paper") ||
       (computerMove == "Rock" && playerMove == "Scissors")
     ) {
+      computerScore += 1;
+      console.log(computerScore);
+      document.querySelector(".score-computer").innerHTML = computerScore;
+      winnerToggle(playerScore, computerScore);
       return "Computer";
     } else if (playerMove == "Unknown") {
       return "Winner cannot be established";
     } else {
+      playerScore += 1;
+      document.querySelector(".score-player").innerText = playerScore;
+      winnerToggle(playerScore, computerScore);
       return "Player";
     }
   }
