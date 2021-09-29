@@ -7,6 +7,4 @@ function printMessage(msg){
 function clearMessages(){
 	document.getElementById('messages').innerHTML = '';
 }
-let computerMove = `rock`;
 
-printMessage('I played ' + computerMove + '! If you move is paper, you win!');
