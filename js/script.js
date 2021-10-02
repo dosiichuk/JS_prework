@@ -4,6 +4,7 @@ let round = 0;
 function playGame(playerInput) {
   clearMessages();
   round += 1;
+  document.querySelector("span.round").innerText = round;
   //function getMoveName
   function getMoveName(moveId) {
     if (moveId == 1) {
@@ -42,7 +43,7 @@ function playGame(playerInput) {
     ) {
       computerScore += 1;
       console.log(computerScore);
-      document.querySelector(".score-computer").innerHTML = computerScore;
+      document.querySelector(".score-computer").innerText = computerScore;
       winnerToggle(playerScore, computerScore);
       return "Computer";
     } else if (playerMove == "Unknown") {
@@ -54,7 +55,6 @@ function playGame(playerInput) {
       return "Player";
     }
   }
-
   //Establish computer's move
 
   let randMove = Math.floor(Math.random() * 3 + 1);
@@ -70,16 +70,23 @@ function playGame(playerInput) {
 
   printMessage(`The winner is: ${winner}`);
 }
-
-document.getElementById("play-rock").addEventListener("click", function () {
+//reset function
+function resetGame() {
   clearMessages();
+  computerScore = 0;
+  playerScore = 0;
+  round = 0;
+  document.querySelector(".score-computer").innerText = computerScore;
+  document.querySelector(".score-player").innerText = playerScore;
+  document.querySelector("span.round").innerText = round;
+}
+document.getElementById("play-rock").addEventListener("click", function () {
   playGame(1);
 });
 document.getElementById("play-paper").addEventListener("click", function () {
-  clearMessages();
   playGame(2);
 });
 document.getElementById("play-scissors").addEventListener("click", function () {
-  clearMessages();
   playGame(3);
 });
+document.querySelector("button.reset").addEventListener("click", resetGame);
